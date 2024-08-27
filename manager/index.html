@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="x-icon" href="icons/fe98op.png" type="image/x-icon" />
+    <title>Statistic For User</title>
+  </head>
+  <body>
+    <div class="container">
+      <h3 class="topTitle">Java Script Regulaire expression manager</h3>
+      <dialog id="add-regx-dialog">
+        <div id="dv-main-container">
+          <h2>Add Regular Expression</h2>
+          <form id="add-regx-form">
+            <label for="name-input">Name:</label>
+            <input type="text" id="name-input" name="name" required />
+            <br />
+            <label for="pattern-input">Pattern:</label>
+            <input type="text" id="pattern-input" name="pattern" required />
+            <br />
+            <button type="submit">Add</button>
+            <button type="button" id="cancel-btn">Cancel</button>
+          </form>
+        </div>
+      </dialog>
+      <div class="table-container">
+        <input
+          type="image"
+          src="icons/add.png"
+          alt="add"
+          id="bt-add-regx"
+          accesskey="n"
+          title="Short-Key N"
+        />
+        <table>
+          <thead>
+            <tr>
+              <th id="th-checkbox">
+                <input
+                  type="image"
+                  src="icons/del.png"
+                  alt="add"
+                  id="bt-del-regx"
+                  accesskey="d"
+                  title="Short-Key D"
+                />
+              </th>
+              <th id="tbl-th-id">ID</th>
+              <th id="tbl-th-nt">name</th>
+              <th id="tbl-th-pattern">pattern</th>
+            </tr>
+          </thead>
+          <tbody id="defaultregx" class="default_regx">
+            <!-- Default profile will be loaded here dynamically -->
+          </tbody>
+          <tbody id="regx_list">
+            <!-- Profiles will be loaded here dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

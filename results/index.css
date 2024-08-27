@@ -1,0 +1,11 @@
+body{
+    background-color: antiquewhite;
+}
+#id_container_result{
+    background-color: aliceblue;
+    width: 80%;
+    height: 90%;
+    position: fixed;
+    margin-left: 10%;
+    overflow: auto;
+}

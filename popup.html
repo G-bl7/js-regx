@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Regex Filter</title>
+    <script src="popup.js"></script>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <h1>JS regx extractor</h1>
+    <div>
+      <input type="button" id="bcontroler" value="OFF" class="main-button" />
+    </div>
+    <div>
+      <input type="text" name="filter" id="filter_id" list="list_filters" placeholder="name of filter">
+      <datalist id="list_filters">
+        <!-- suggestion will be added here-->
+      </datalist>
+    </div>
+    <div>
+      <input type="button" value="Filters" id="bfilters" class="main-button" />
+    </div>
+    <input type="button" value="results" id="bresult" class="main-button" disabled/>
+    <div></div>
+    <input type="button" value="export" id="bexport" class="main-button" disabled/>
+    <div></div>
+    <div><input type="button" value="clear" id="bclear" class="main-button" disabled></div>
+  </body>
+</html>

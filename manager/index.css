@@ -1,0 +1,135 @@
+/* General styling */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin: 0; /* Ensure no default margin */
+}
+
+.topTitle {
+  text-align: center;
+}
+
+.container {
+  width: 90%; /* Set the flexible width */
+  height: 85vh; /* Set the flexible height */
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  position: relative; /* Ensure relative positioning */
+  margin-top: 15px;
+}
+
+.table-container {
+  overflow-y: auto; /* Enable vertical scrolling for the table */
+  max-height: calc(100% - 90px); /* Adjust max height to fit remaining space */
+  margin-top: 10px; /* Adjust as needed */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+#bt-add-regx,
+#bt-del-regx {
+  margin-right: 5px;
+  width: 20px; /* adjust the width to your liking */
+  height: 20px; /* adjust the height to your liking */
+  margin-right: 5px;
+  object-fit: contain;
+}
+
+#tbl-th-id {
+  width: 4vh;
+  text-align: center; /* Use text-align instead of align-items */
+}
+
+#tbl-th-pattern {
+  width: 60%;
+}
+
+#tbl-th-nt {
+  width: 40%;
+}
+
+.controler {
+  border: none;
+  background-color: aqua;
+}
+.result-info-left {
+  position: fixed;
+  background-color: #f0f0f0;
+  padding: 5px;
+  margin: 10px; /* Add unit to margin value */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+dialog {
+  position: fixed;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 60vh;
+  margin-right: 100vh;
+}
+
+dialog h2 {
+  margin-top: 0;
+}
+
+dialog form {
+  margin-top: 20px;
+}
+
+dialog label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+dialog input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+dialog button[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+dialog button[type="button"] {
+  background-color: #ccc;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#dv-main-container {
+  margin-right: 2vh;
+}

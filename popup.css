@@ -1,0 +1,22 @@
+body {
+  max-width: 100vh;
+  max-height: 100vh;
+  background-color: rgb(124, 141, 172);
+}
+.main-button {
+  width: 100%;
+  background-color: #1abc9c;
+}
+
+.main-button:disabled {
+  background-color: #bdc3c7;
+}
+
+#bcontroler {
+  background-color: #95a5a6;
+}
+
+#filter_id {
+  width: 50vh;
+  margin: 0vh;
+}

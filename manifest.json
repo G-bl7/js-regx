@@ -2,13 +2,7 @@
   "manifest_version": 3,
   "name": "Regex Filter Extension",
   "version": "1.0",
-  "permissions": [
-    "tabs",
-    "activeTab",
-    "storage",
-    "scripting",
-    "downloads"
-  ],
+  "permissions": ["tabs", "activeTab", "storage", "scripting", "downloads"],
   "background": {
     "service_worker": "background.js"
   },
@@ -20,8 +14,12 @@
       "128": "images/icon128.png"
     }
   },
-  "host_permissions": [
-    "http://*/*",
-    "https://*/*"
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["injected/js-code-injected.js"],
+      "css": ["injected/css-code-injected.css"]
+    }
   ]
 }

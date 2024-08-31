@@ -1,0 +1,22 @@
+.saved-note {
+  text-decoration: underline;
+  background-color: yellow;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Optional: Custom tooltip styling */
+.saved-notee:hover::after {
+  content: attr(title);
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 1000;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}

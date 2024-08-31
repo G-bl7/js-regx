@@ -1,3 +1,17 @@
+chrome.runtime.onInstalled.addListener(function (details) {
+  if (details.reason == "install") {
+    // Set default regex pattern for IP addresses
+    const defaultRegex = [
+      {
+        id: 1,
+        name: "IP Address",
+        pattern: "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b"
+      },
+    ];
+    chrome.storage.local.set({ regx: defaultRegex });
+  }
+});
+
 let isFilterOn = false;
 let activeRegex = "";
 
@@ -35,7 +49,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return true;
     }
     case "get_result": {
-      console.log("get your call ", message);
       chrome.storage.local.get("results", (result) => {
         const resultsArray = result.results || [];
         sendResponse({ results: resultsArray });
@@ -57,7 +70,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const text = resultsArray.join("\n");
         chrome.downloads.download({
           url: "data:application/json," + encodeURIComponent(text),
-          filename: "filtered_results.json",
+          filename: "filtered_results.txt",
           saveAs: true,
         });
       });
@@ -142,21 +155,30 @@ function filter_behavoir(activeInfo) {
 }
 
 function applyRegexFilter(regexPattern) {
-  // Create a new regular expression object
   const regex = new RegExp(regexPattern, "g");
+  const matches = [];
+  const batchSize = 20; // adjust this value to control batch size
+  const throttleTimeout = 100; // adjust this value to control throttle timeout
+
+  // Create a function to process batches of matches
+  function processBatch() {
+    const batch = matches.splice(0, batchSize);
+    chrome.runtime.sendMessage({
+      action: "sendResults",
+      matches: batch,
+    });
+    if (matches.length > 0) {
+      setTimeout(processBatch, throttleTimeout);
+    }
+  }
 
   // Match the regex pattern in the text content of the page's body
-  const matches = document.body.innerText.match(regex) || [];
+  const textContent = document.body.innerText;
+  let match;
+  while ((match = regex.exec(textContent)) !== null) {
+    matches.push(match[0]);
+  }
 
-  // Send a message to the background script with the matches and the extension ID
-  chrome.runtime.sendMessage(
-    {
-      action: "sendResults",
-      matches: matches,
-    },
-    function (response) {
-      // Optional: Handle the response from the background script
-      console.log("Response from background:", response);
-    }
-  );
+  // Process the matches in batches
+  processBatch();
 }

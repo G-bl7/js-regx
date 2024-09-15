@@ -9,10 +9,11 @@
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "images/icon16.png",
-      "48": "images/icon48.png",
-      "128": "images/icon128.png"
-    }
+      "16": "images/icon16-down.png",
+      "48": "images/icon48-down.png",
+      "128": "images/icon128-down.png"
+    },
+    "default_title": "Regex Filter Extension"  
   },
   "host_permissions": ["http://*/*", "https://*/*"],
   "content_scripts": [
@@ -21,5 +22,10 @@
       "js": ["injected/js-code-injected.js"],
       "css": ["injected/css-code-injected.css"]
     }
-  ]
+  ],
+  "icons": {
+    "16": "images/icon16-up.png",
+    "48": "images/icon48-up.png",
+    "128": "images/icon128-up.png"
+  }
 }

@@ -5,7 +5,12 @@ chrome.runtime.onInstalled.addListener(function (details) {
       {
         id: 1,
         name: "IP Address",
-        pattern: "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b"
+        pattern: "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b",
+      },
+      {
+        id: 2,
+        name: "Domain Name/url",
+        pattern: "(www.)?([a-zA-Z0-9.-]+.[a-zA-Z]{2,})/?",
       },
     ];
     chrome.storage.local.set({ regx: defaultRegex });
@@ -14,13 +19,33 @@ chrome.runtime.onInstalled.addListener(function (details) {
 
 let isFilterOn = false;
 let activeRegex = "";
-
 // message handler
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  chrome.action.setBadgeBackgroundColor({ color: "#95c456" }); // Optional: set badge background color to red
+
   console.log("background message", message);
   switch (message.action) {
     case "controler_request": {
       isFilterOn = !isFilterOn;
+      
+      if (isFilterOn) {
+        
+        chrome.action.setIcon({
+          path: {
+            16: "images/icon16-up.png",
+            48: "images/icon48-up.png",
+            128: "images/icon128-up.png",
+          },
+        });
+      } else {
+        chrome.action.setIcon({
+          path: {
+            16: "images/icon16-down.png",
+            48: "images/icon48-down.png",
+            128: "images/icon128-down.png",
+          },
+        });
+      }
       activeRegex = message.activeRegex || "";
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         filter_behavoir({ tabId: tabs[0].id });
@@ -42,10 +67,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         const uniqueArray = [
           ...new Set([...result.results, ...message.matches]),
         ];
-        chrome.storage.local.set({
-          results: uniqueArray,
-        });
+
+        chrome.storage.local.set(
+          {
+            results: uniqueArray,
+          },
+          () => {
+            chrome.action.setBadgeText({ text: "" + uniqueArray.length });
+          }
+        );
       });
+      sendResponse({ success: true });
       return true;
     }
     case "get_result": {
@@ -90,6 +122,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     case "clear_result": {
       chrome.storage.local.set({ results: [] });
+      chrome.action.setBadgeText({ text: "" });
       return true;
     }
     case "delete-regx": {
@@ -155,6 +188,7 @@ function filter_behavoir(activeInfo) {
 }
 
 function applyRegexFilter(regexPattern) {
+  console.log("In use:", regexPattern);
   const regex = new RegExp(regexPattern, "g");
   const matches = [];
   const batchSize = 20; // adjust this value to control batch size

@@ -3,20 +3,15 @@ document.addEventListener("DOMContentLoaded", main);
 function main() {
   chrome.runtime.sendMessage({ action: "get-regx" }, (response) => {
     const regexList = response.regexList;
-    const datalist = document.getElementById("list_filters");
-    datalist.innerHTML = "";
-    if (regexList.length > 0) {
-      const filter = document.getElementById("filter_id");
-      filter.value = regexList[0].name;
-      filter.dataset.id = regexList[0].id;
-      filter.dataset.regx = regexList[0].pattern;
-    }
+    const list_filters = document.getElementById("filter_id");
+    list_filters.innerHTML = "";
+
     regexList.forEach((element) => {
       const option = document.createElement("option");
-      option.value = element.name;
+      option.textContent = element.name;
       option.dataset.id = element.id;
       option.dataset.filter = element.pattern;
-      datalist.appendChild(option);
+      list_filters.appendChild(option);
     });
 
     const input_filter = document.getElementById("filter_id");
@@ -54,7 +49,8 @@ function main() {
 
 // ON/OFF behavior
 function on_of_behavoir() {
-  const val = document.getElementById("filter_id").dataset.regx;
+  const main_filter = document.getElementById("filter_id");
+  const val = main_filter.options[main_filter.selectedIndex].dataset.filter;
   chrome.runtime.sendMessage(
     {
       action: "controler_request",

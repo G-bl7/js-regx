@@ -1,4 +1,4 @@
-console.log("Injected JS G-bl7 Assistant start running.");
+console.log("Regex Filter Extension 1.0 running.");
 
 //  Get text From DB
 function main() {
